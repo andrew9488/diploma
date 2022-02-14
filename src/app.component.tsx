@@ -4,7 +4,7 @@ import styles from './app.module.css';
 import {Login} from "./views/login";
 import {Path, PrivateRoute} from "./shared/route";
 import {Registration} from "./views/registration";
-import {Trades} from "./views/trades";
+import {Offers} from "./views/offers";
 
 const App = () => {
 
@@ -13,10 +13,10 @@ const App = () => {
             <Routes>
                 <Route path={Path.signIn} element={<Login/>}/>
                 <Route path={Path.signUp} element={<Registration/>}/>
-                <Route path={Path.trades} element={
-                    <PrivateRoute>
-                        <Trades/>
-                    </PrivateRoute>
+                <Route path={Path.offers} element={
+                    // <PrivateRoute>
+                        <Offers/>
+                    // </PrivateRoute>
                     }
                 />
             </Routes>

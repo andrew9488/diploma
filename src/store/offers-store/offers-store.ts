@@ -36,7 +36,7 @@ class OffersStore {
         this.offersApi.createOffer(offer)
             .then(data => {
                 runInAction(() => {
-                    this.offers = [...this.offers, {...data, id: new Date().getTime(), is_active: false}]
+                    this.offers = [...this.offers, {...data, id: new Date().getTime(), is_active: true}]
                 })
             })
             .catch((error) => console.log(error))

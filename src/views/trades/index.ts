@@ -1,1 +1,0 @@
-export {default as Trades} from './trades.components';

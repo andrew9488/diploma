@@ -4,8 +4,10 @@ export interface OffersApiType {
     deleteOffer: (id: number) => Promise<void>
 }
 
+export type OrderType = 1 | 2
+
 export type CreateOfferPayload = {
-    order_type: number
+    order_type: OrderType
     user: number
     item: number
     entry_quantity: number
@@ -13,7 +15,7 @@ export type CreateOfferPayload = {
 }
 
 export type CreatedOfferResponseType = {
-    order_type: number
+    order_type: OrderType
     user: number
     item: number
     entry_quantity: number
