@@ -1,1 +1,0 @@
-export {default as PublicRoute} from './public-route.component';

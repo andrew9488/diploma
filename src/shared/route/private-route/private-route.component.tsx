@@ -4,13 +4,9 @@ import {observer} from "mobx-react-lite";
 import {Path} from "../path";
 import {AuthStore} from "../../../store/auth-store";
 
-type PrivateRoutePropsType = {
-    children: JSX.Element;
-}
-
-const PrivateRoute:React.FC<PrivateRoutePropsType> = observer(({children}) => {
+const PrivateRoute:React.FC = observer(({children}) => {
     const {authorization} = AuthStore;
-    return authorization ? children : <Navigate to={Path.signIn} />;
+    return <>{authorization ? children : <Navigate to={Path.signIn}/>}</>;
 });
 
 export default PrivateRoute;

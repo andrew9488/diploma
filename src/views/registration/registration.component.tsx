@@ -1,33 +1,42 @@
 import React, {useRef} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {useForm} from "react-hook-form";
+import {observer} from "mobx-react-lite";
 import stylesContainer from '../../shared/styles/container.module.css';
 import stylesButtonsBlock from '../../shared/styles/buttons-container.module.css';
 import stylesFormFieldsBlock from '../../shared/styles/form-fields-block.module.css';
 import {Button, Input} from "../../shared/ui";
 import {Path} from "../../shared/route";
+import {AuthStore} from "../../store/auth-store";
 
-export type RegistrationDataType = {
+type RegistrationDataType = {
     email: string;
     nickName: string;
     password: string;
     checkPassword: string;
 }
 
-type RegistrationPropsType = {
-    onSubmit: (data: RegistrationDataType)=>void;
-}
-
-const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
+const Registration = observer(() => {
 
     const {register, handleSubmit, watch, formState: {isSubmitting, errors}} = useForm<RegistrationDataType>();
     const password = useRef({});
     password.current = watch("password", "");
 
+    const {registration, authorization} = AuthStore;
+
+    const registrationSubmitHandler = (dataForm: RegistrationDataType): void => {
+        const {email, nickName, password} = dataForm;
+        registration(email, nickName, password)
+    }
+
+    if (authorization) {
+        return <Navigate to={Path.trades}/>
+    }
+
     return (
         <form
             className={stylesContainer.container}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(registrationSubmitHandler)}
         >
             <h2>Sign Up</h2>
             <div className={stylesFormFieldsBlock.inputBlock}>
@@ -47,8 +56,8 @@ const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
                     {...register("password", {
                         required: "This field is required.",
                         minLength: {
-                            value: 4,
-                            message: "Password must have at least 4 characters"
+                            value: 8,
+                            message: "Password must have at least 8 characters"
                         }
                     })}
                     placeholder="password"
@@ -82,6 +91,6 @@ const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
             </div>
         </form>
     );
-};
+});
 
-export default React.memo(Registration);
+export default Registration;

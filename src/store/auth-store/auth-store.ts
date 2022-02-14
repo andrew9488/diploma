@@ -1,9 +1,9 @@
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
-import {authApi} from "../../api/auth-api";
+import {AuthApiService, AuthApiType} from "../../api/auth-api";
 
 class AuthStore {
     isAuth: boolean;
-    userName: string;
+    authApi: AuthApiType;
 
     constructor() {
         makeObservable(this, {
@@ -12,8 +12,10 @@ class AuthStore {
             login: action,
             registration: action,
         })
-        this.isAuth = false
-        this.userName = ''
+        this.isAuth = false;
+        this.authApi = new AuthApiService();
+        this.login = this.login.bind(this)
+        this.registration = this.registration.bind(this)
     }
 
     get authorization(): boolean {
@@ -21,19 +23,22 @@ class AuthStore {
     }
 
     login(email: string, password: string) {
-        authApi.login(email, password)
-            .then(() => runInAction(() => {
-                this.isAuth = true
-            }))
+        this.authApi.login(email, password)
+            .then(() => {
+                runInAction(() => {
+                    this.isAuth = true
+                })
+            })
             .catch((error) => console.log(error))
     }
 
     registration(email: string, userName: string, password: string) {
-        authApi.registration(email, userName, password)
-            .then(({username}) => runInAction(() => {
-                this.isAuth = true;
-                this.userName = username
-            }))
+        this.authApi.registration(email, userName, password)
+            .then(() => {
+                runInAction(() => {
+                    this.isAuth = true;
+                })
+            })
             .catch((error) => console.log(error))
     }
 }
