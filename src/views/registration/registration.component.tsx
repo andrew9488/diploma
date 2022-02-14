@@ -1,25 +1,26 @@
 import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
-import stylesContainer from '../../shared/styles/container.styles.module.css';
-import stylesButtonsBlock from '../../shared/styles/buttons-container.styles.module.css';
-import stylesFormFieldsBlock from '../../shared/styles/form-fields-block.styles.module.css';
+import {useForm} from "react-hook-form";
+import stylesContainer from '../../shared/styles/container.module.css';
+import stylesButtonsBlock from '../../shared/styles/buttons-container.module.css';
+import stylesFormFieldsBlock from '../../shared/styles/form-fields-block.module.css';
 import {Button, Input} from "../../shared/ui";
 import {Path} from "../../shared/route";
 
 export type RegistrationDataType = {
     email: string;
+    nickName: string;
     password: string;
     checkPassword: string;
 }
 
 type RegistrationPropsType = {
-    onSubmit: SubmitHandler<FieldValues>
+    onSubmit: (data: RegistrationDataType)=>void;
 }
 
 const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
 
-    const {register, handleSubmit, watch, formState: {isSubmitting, errors}} = useForm();
+    const {register, handleSubmit, watch, formState: {isSubmitting, errors}} = useForm<RegistrationDataType>();
     const password = useRef({});
     password.current = watch("password", "");
 
@@ -36,6 +37,12 @@ const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
                 />
                 {errors?.email?.message &&
                 <span className={stylesFormFieldsBlock.error}>{errors?.email?.message}</span>}
+                <Input
+                    {...register("nickName", {required: "This field is required."})}
+                    placeholder="nick name"
+                />
+                {errors?.nickName?.message &&
+                <span className={stylesFormFieldsBlock.error}>{errors?.nickName?.message}</span>}
                 <Input
                     {...register("password", {
                         required: "This field is required.",
@@ -54,7 +61,7 @@ const Registration: React.FC<RegistrationPropsType> = ({onSubmit}) => {
                         required: "This field is required.",
                         validate: value => value === password.current || "The passwords do not match"
                     })}
-                    placeholder="password"
+                    placeholder="check password"
                     type="password"
                 />
                 {errors?.checkPassword?.message &&

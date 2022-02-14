@@ -1,25 +1,24 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
-import stylesContainer from '../../shared/styles/container.styles.module.css';
-import stylesButtonsBlock from '../../shared/styles/buttons-container.styles.module.css';
-import stylesFormFieldsBlock from '../../shared/styles/form-fields-block.styles.module.css';
+import {useForm} from "react-hook-form";
+import stylesContainer from '../../shared/styles/container.module.css';
+import stylesButtonsBlock from '../../shared/styles/buttons-container.module.css';
+import stylesFormFieldsBlock from '../../shared/styles/form-fields-block.module.css';
 import {Button, Input} from "../../shared/ui";
 import {Path} from "../../shared/route";
 
 export type LoginDataType = {
     email: string;
     password: string;
-    checkPassword: string;
 }
 
 type LoginPropsType = {
-    onSubmit: SubmitHandler<FieldValues>
+    onSubmit: (data: LoginDataType) => void;
 }
 
 const Login: React.FC<LoginPropsType> = ({onSubmit}) => {
 
-    const {register, handleSubmit, formState: {isSubmitting, errors}} = useForm();
+    const {register, handleSubmit, formState: {isSubmitting, errors}} = useForm<LoginDataType>();
 
     return (
         <form
