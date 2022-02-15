@@ -26,7 +26,7 @@ const Offers: React.FC = observer(({}) => {
                     <Button onClick={openCreateOfferModalHandler}>Create offer</Button>
                 </div>
             </div>
-            <table className={styles.offersTable}>
+            <table>
                 <thead>
                 <tr>
                     <th>Active</th>
