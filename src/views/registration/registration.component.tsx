@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import {observer} from "mobx-react-lite";
 import stylesContainer from '../../shared/styles/container.module.css';
@@ -18,8 +18,14 @@ type RegistrationDataType = {
 
 const Registration = observer(() => {
 
-    const {register, handleSubmit, watch, formState: {isSubmitting, errors}} = useForm<RegistrationDataType>();
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: {isSubmitting, errors}
+    } = useForm<RegistrationDataType>();
     const password = useRef({});
+    const navigate = useNavigate()
     password.current = watch("password", "");
 
     const {registration, authorization} = AuthStore;
@@ -27,6 +33,7 @@ const Registration = observer(() => {
     const registrationSubmitHandler = (dataForm: RegistrationDataType): void => {
         const {email, nickName, password} = dataForm;
         registration(email, nickName, password)
+        navigate(Path.signIn)
     }
 
     if (authorization) {

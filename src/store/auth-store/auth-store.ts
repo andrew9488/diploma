@@ -1,32 +1,39 @@
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import {AuthApiService, AuthApiType} from "../../api/auth-api";
+import {setUserToken, getUserToken} from "../../utility/session-storage";
 
 class AuthStore {
-    isAuth: boolean;
+    token: string;
     authApi: AuthApiType;
 
     constructor() {
         makeObservable(this, {
-            isAuth: observable,
+            token: observable,
             authorization: computed,
             login: action,
             registration: action,
         })
-        this.isAuth = false;
+        this.token = '';
         this.authApi = new AuthApiService();
         this.login = this.login.bind(this)
         this.registration = this.registration.bind(this)
     }
 
-    get authorization(): boolean {
-        return this.isAuth
+    get authorization() {
+        if (!this.token) {
+            const token = getUserToken()
+            if (token) return this.token = token
+        } else {
+            return this.token
+        }
     }
 
     login(email: string, password: string) {
         this.authApi.login(email, password)
-            .then(() => {
+            .then(({token}) => {
                 runInAction(() => {
-                    this.isAuth = true
+                    setUserToken(token);
+                    this.token = token
                 })
             })
             .catch((error) => console.log(error))
@@ -34,11 +41,7 @@ class AuthStore {
 
     registration(email: string, userName: string, password: string) {
         this.authApi.registration(email, userName, password)
-            .then(() => {
-                runInAction(() => {
-                    this.isAuth = true;
-                })
-            })
+            .then(() => {runInAction(() => {})})
             .catch((error) => console.log(error))
     }
 }

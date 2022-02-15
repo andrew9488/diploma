@@ -34,9 +34,9 @@ class OffersStore {
 
     createOffer(offer: CreateOfferPayload) {
         this.offersApi.createOffer(offer)
-            .then(data => {
+            .then(() => {
                 runInAction(() => {
-                    this.offers = [...this.offers, {...data, id: new Date().getTime(), is_active: true}]
+                    this.fetchOffersList()
                 })
             })
             .catch((error) => console.log(error))
@@ -44,7 +44,7 @@ class OffersStore {
 
     deleteOffer(id: number) {
         this.offersApi.deleteOffer(id)
-            .then(() => runInAction(() => console.log('offer was deleted')))
+            .then(() => runInAction(() => this.offers = this.offers.filter(offer=>offer.id !== id)))
             .catch((error) => console.log(error))
     }
 }

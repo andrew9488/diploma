@@ -5,6 +5,9 @@ import {Login} from "./views/login";
 import {Path, PrivateRoute} from "./shared/route";
 import {Registration} from "./views/registration";
 import {Offers} from "./views/offers";
+import {Header} from "./shared/components";
+import {Navbar} from "./shared/components";
+import {Trades} from "./views/trades";
 
 const App = () => {
 
@@ -13,12 +16,16 @@ const App = () => {
             <Routes>
                 <Route path={Path.signIn} element={<Login/>}/>
                 <Route path={Path.signUp} element={<Registration/>}/>
-                <Route path={Path.offers} element={
-                    // <PrivateRoute>
-                        <Offers/>
-                    // </PrivateRoute>
-                    }
-                />
+                <Route path={`${Path.trades}*`} element={
+                    <PrivateRoute>
+                            <Header/>
+                            <Navbar/>
+                        <Routes>
+                            <Route path={`${Path.trades}*`} element={<Trades/>}/>
+                            <Route path={`${Path.offers}/*`} element={<Offers/>}/>
+                        </Routes>
+                    </PrivateRoute>
+                }/>
             </Routes>
         </div>
     );

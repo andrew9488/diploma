@@ -22,7 +22,7 @@ const Offers: React.FC = observer(({}) => {
         <div className={styles.offersContainer}>
             <div className={styles.pageTitle}>
                 <h1>Offers list</h1>
-                <div>
+                <div className={styles.button}>
                     <Button onClick={openCreateOfferModalHandler}>Create offer</Button>
                 </div>
             </div>

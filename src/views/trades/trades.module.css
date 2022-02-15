@@ -1,4 +1,4 @@
-.offersContainer {
+.tradesContainer {
     grid-area: content;
     padding: 0 20px;
     box-sizing: border-box;
@@ -11,8 +11,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.button{
-    margin-left: 20px;
 }

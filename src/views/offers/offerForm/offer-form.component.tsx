@@ -20,7 +20,7 @@ const OfferForm = () => {
 
     const loginSubmitHandler = (dataForm: OfferDataType): void => {
         const {orderType, item, entryQuantity, price} = dataForm
-        const user = new Date().getTime()
+        const user = 1
         const data = {
             order_type: orderType,
             user,
