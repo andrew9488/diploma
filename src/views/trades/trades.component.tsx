@@ -20,9 +20,7 @@ const Trades = observer(() => {
                 <thead>
                 <tr>
                     <th>Buyer</th>
-                    <th>Buyer offer</th>
                     <th>Seller</th>
-                    <th>Seller offer</th>
                     <th>Quantity</th>
                     <th>Unit price</th>
                     <th>Item</th>

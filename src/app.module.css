@@ -23,6 +23,10 @@ table {
   width: 100%;
 }
 
+/*tbody {*/
+/*  overflow-y: scroll;*/
+/*}*/
+
 td, th {
   border: 1px solid #171616;
   text-align: center;

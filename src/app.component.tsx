@@ -5,7 +5,7 @@ import {Login} from "./views/login";
 import {Path, PrivateRoute} from "./shared/route";
 import {Registration} from "./views/registration";
 import {Offers} from "./views/offers";
-import {Header} from "./shared/components";
+import {Footer, Header} from "./shared/components";
 import {Navbar} from "./shared/components";
 import {Trades} from "./views/trades";
 
@@ -24,7 +24,8 @@ const App = () => {
                             <Route path={`${Path.trades}*`} element={<Trades/>}/>
                             <Route path={`${Path.offers}/*`} element={<Offers/>}/>
                         </Routes>
-                    </PrivateRoute>
+                        <Footer/>
+                    // </PrivateRoute>
                 }/>
             </Routes>
         </div>

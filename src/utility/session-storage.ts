@@ -5,3 +5,7 @@ export const setUserToken = (token: string) => {
 export const getUserToken = () => {
    return sessionStorage.getItem('userTokenAuthorize')
 }
+
+export const removeUserToken = () => {
+   return sessionStorage.removeItem('userTokenAuthorize')
+}

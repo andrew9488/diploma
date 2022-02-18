@@ -4,7 +4,7 @@ import styles from "./offers.module.css";
 import {OffersStore} from "../../store/offers-store";
 import {Offer} from "./offer";
 import {Button, Modal} from "../../shared/ui";
-import {OfferForm} from "./offerForm";
+import {OfferForm} from "./offer-form";
 
 const Offers: React.FC = observer(({}) => {
 
@@ -18,6 +18,9 @@ const Offers: React.FC = observer(({}) => {
     const openCreateOfferModalHandler = () => {
         setVisible(true)
     }
+    const closeCreateOfferModalHandler = () => {
+        setVisible(false)
+    }
     return (
         <div className={styles.offersContainer}>
             <div className={styles.pageTitle}>
@@ -30,9 +33,8 @@ const Offers: React.FC = observer(({}) => {
                 <thead>
                 <tr>
                     <th>Active</th>
-                    <th>User ID</th>
+                    <th>User</th>
                     <th>Order</th>
-                    <th>Entry quantity</th>
                     <th>Current quantity</th>
                     <th>Price</th>
                     <th>Item</th>
@@ -47,7 +49,7 @@ const Offers: React.FC = observer(({}) => {
                 </tbody>
             </table>
             <Modal visible={visible} setVisible={setVisible}>
-                <OfferForm/>
+                <OfferForm close={closeCreateOfferModalHandler}/>
             </Modal>
         </div>
     )

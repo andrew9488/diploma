@@ -2,7 +2,7 @@
     grid-area: navbar;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0;
     background-color: #f4511e;
 }
 

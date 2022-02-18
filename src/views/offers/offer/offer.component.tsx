@@ -9,9 +9,14 @@ type OfferPropsType = {
 
 const Offer = ({offer, deleteOffer}: OfferPropsType) => {
 
-    const {is_active, current_quantity, entry_quantity, order_type, price, user, item} = offer
+    const {is_active, current_quantity, order_type, price, user, item} = offer
 
     const isActive = is_active ? styles.activeOffer : styles.notActiveOffer
+
+    const orderOffer = {
+        1: 'buy',
+        2: 'sell',
+    }
 
     return (
         <tr>
@@ -19,8 +24,7 @@ const Offer = ({offer, deleteOffer}: OfferPropsType) => {
                 <div className={isActive}/>
             </td>
             <td>{user}</td>
-            <td>{order_type}</td>
-            <td>{entry_quantity}</td>
+            <td>{orderOffer[order_type]}</td>
             <td>{current_quantity}</td>
             <td>${price}</td>
             <td>{item}</td>
