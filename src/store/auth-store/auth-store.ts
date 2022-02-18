@@ -11,11 +11,13 @@ class AuthStore {
             token: observable,
             authorization: computed,
             login: action,
+            removeToken: action,
             registration: action,
         })
         this.token = '';
         this.authApi = new AuthApiService();
         this.login = this.login.bind(this)
+        this.removeToken = this.removeToken.bind(this)
         this.registration = this.registration.bind(this)
     }
 
@@ -26,6 +28,10 @@ class AuthStore {
         } else {
             return this.token
         }
+    }
+
+    removeToken(){
+        this.token = ''
     }
 
     login(email: string, password: string) {
